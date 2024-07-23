@@ -372,8 +372,9 @@ nav > ul:last-of-type i {
 }
 /* divs container */
 .divs-main {
-  padding: 1rem;
   margin-top: 1rem;
+  padding: 1rem;
+
 }
 
 .divs-inner {
@@ -700,4 +701,10 @@ nav > ul:last-of-type i {
 .bday-text{
     margin-top: 1rem;
     line-height: 18px;
+}
+.blue-background{
+  height: 12rem;
+  background-color: #3d5a78;
+  width: 100%;
+  margin-top: -9rem;
 }
