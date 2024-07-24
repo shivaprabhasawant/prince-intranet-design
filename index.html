@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="./script.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -35,6 +36,13 @@
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
     />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <!-- calendar -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
   </head>
 
   <body>
@@ -378,16 +386,12 @@
               <div class="block">
                 <div class="block-header">
                   <div class="block-heading" style="font-weight: 600">
-                    Event calender
+                    Event calendar
                   </div>
                   <div>All <i class="fa-solid fa-arrow-right-long"></i></div>
                 </div>
-                <div class="block-content">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veniam, animi quo incidunt inventore omnis alias?
-                  Necessitatibus dignissimos deserunt ab eaque! Repellendus ab
-                  voluptatibus ducimus, illum quo doloribus natus quasi
-                  consectetur.
+                <div class="block-content" style="margin-top: 0;">
+                  <div id="calendar" class="month-div"></div>
                 </div>
               </div>
             </div>
@@ -689,16 +693,13 @@
 
       function updateWindowWidth() {
         const width = window.innerWidth;
-        if(width <= 450){
+        if (width <= 450) {
           numOfItem = 3;
-        }
-        else if(width < 545){
+        } else if (width < 545) {
           numOfItem = 4;
-        }
-        else if (width < 700) {
+        } else if (width < 700) {
           numOfItem = 5;
-        }
-        else {
+        } else {
           numOfItem = 6;
         }
       }
@@ -758,6 +759,75 @@
       function closeNav1() {
         document.getElementById("mySidenav1").style.width = "0";
       }
+
+      // calendar
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var monthDisplayEl = document.getElementById("monthDisplay");
+        var currentDate = new Date();
+        // Determine the first day of the week based on the locale
+        var firstDay =
+          currentDate.toLocaleDateString(undefined, { weekday: "short" }) ===
+          "Sun"
+            ? 0
+            : 1;
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+          initialDate: currentDate,
+          headerToolbar: false,
+          firstDay: firstDay, // Dynamically set the first day of the week
+          viewDidMount: function (view) {
+            hideOtherMonthDays();
+            updateMonthDisplay();
+          },
+          datesSet: function () {
+            hideOtherMonthDays();
+            updateMonthDisplay();
+          },
+          events: [
+            {
+              title: "Event 1",
+              start: "2024-01-02",
+              end: "2024-01-02",
+              color: "#007bff",
+            },
+          ],
+        });
+        function hideOtherMonthDays() {
+          var calendarEl = document.getElementById("calendar");
+          var dayGrid = calendarEl.getElementsByClassName("fc-daygrid-day");
+          var currentMonth = calendar.view.currentStart.getMonth();
+
+          for (var i = 0; i < dayGrid.length; i++) {
+            var dayDate = new Date(dayGrid[i].getAttribute("data-date"));
+            if (dayDate.getMonth() !== currentMonth) {
+              dayGrid[i].style.display = "none";
+            }
+          }
+        }
+        function updateMonthDisplay() {
+          var monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          var currentMonth = calendar.view.currentStart.getMonth();
+          var currentYear = calendar.view.currentStart.getFullYear();
+          monthDisplayEl.textContent =
+            monthNames[currentMonth] + " " + currentYear;
+        }
+        calendar.render();
+      });
     </script>
   </body>
 </html>

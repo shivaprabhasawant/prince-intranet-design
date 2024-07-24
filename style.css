@@ -1023,3 +1023,43 @@ nav>ul:last-of-type>li:last-of-type {
     padding-bottom: 3.5rem;
 }
 }
+
+
+/* calendar */
+
+.month-name {
+  padding: 10px;
+  font-size: 26px;
+}
+
+.month-div {
+  margin-top: 1.5rem;
+  color: black;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: none !important;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: none !important;
+  text-align: center;
+}
+
+.fc .fc-daygrid-day-top {
+  justify-content: center;
+}
+
+.calender-inner-container {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+#calendar a{
+  color: black !important;
+}
+
+.Calendar-block{
+  
+}
